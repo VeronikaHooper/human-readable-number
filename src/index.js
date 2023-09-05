@@ -3,6 +3,10 @@ module.exports = function toReadable(number) {
     const tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
     let word = '';
 
+    if (parseInt(number) === 0) {
+        return 'zero';
+    }
+
     for (let i = 0; i < 1000; i++) {
         let tempNumber = number % (100 * Math.pow(1000, i));
         if (Math.floor(tempNumber / Math.pow(1000, i)) !== 0) {
@@ -16,9 +20,7 @@ module.exports = function toReadable(number) {
         tempNumber = number % (Math.pow(1000, i + 1));
         if (Math.floor(tempNumber / (100 * Math.pow(1000, i))) !== 0) word = first[Math.floor(tempNumber / (100 * Math.pow(1000, i)))] + ' hundred ' + word;
     }
-    if (parseInt(first) === 0) {
-        return 'zero';
-    }
-    word = word.slice(0, -1);
-    return word;
+
+
+    return word.trim();
 }
